@@ -48,18 +48,13 @@ uvicorn app.main:app --host 127.0.0.1 --port 8000
 5) Open `http://127.0.0.1:8000` in your browser
 
 6) Optional: Background & screenshot
-- Background image: place `app/static/background.jpg` (any large stock-market image)
+- Background image: place `app/static/background.jpg`
 - UI screenshot: place `app/static/Web-Interface.png` so it appears in this README
 
 ## API
 - GET `/health` – service status
 - POST `/api/train` – retrain and persist new model
 - POST `/api/predict` – JSON payload; UI uses HTML form at `/predict`
-
-## Deployment (Railway)
-- Repo includes `Procfile` and `requirements.txt`
-- Deploy the repo; Railway will start `uvicorn app.main:app`
-- Set Python version as needed (via Railway settings) and ensure data files are included
 
 ## Project structure
 ```
@@ -77,7 +72,6 @@ Quant_Intern/
   Assignemnt/        # CSV data (required)
 artifacts/           # Saved model & metadata (created at runtime)
 requirements.txt
-Procfile
 README.md
 ```
 
