@@ -1,0 +1,32 @@
+# Virtual environments
+.venv/
+venv/
+
+# Python cache and build
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.egg-info/
+dist/
+build/
+
+# IDE/editor
+.vscode/
+.idea/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Artifacts and logs
+artifacts/
+logs/
+*.log
+
+# Notebooks checkpoints
+.ipynb_checkpoints/
+
+# Local data outputs
+Quant_Intern/test_1/
+Quant_Intern/test_2/

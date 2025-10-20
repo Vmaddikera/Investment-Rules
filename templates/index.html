@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Stock Market Capitalization Prediction</title>
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+  <div class="hero">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <div class="brand">Stock Market Capitalization Prediction</div>
+      <div class="subtitle">Predict the probability a company remains in next year's top market-cap universe.</div>
+    </div>
+  </div>
+  <div class="container">
+    {% if message %}
+      <div class="card" style="border-left: 4px solid #b91c1c; color:#ffb4b4;">{{ message }}</div>
+    {% endif %}
+    <div class="grid">
+      <div class="card">
+        <h3 class="section-title">Input</h3>
+        <form action="/predict" method="post">
+          <div class="row">
+            <div>
+              <label>Year</label>
+              <select name="year">
+                {% if years and years|length > 0 %}
+                  {% for y in years %}
+                    <option value="{{ y }}" {% if loop.last %}selected{% endif %}>{{ y }}</option>
+                  {% endfor %}
+                {% else %}
+                  <option value="2005">2005</option>
+                {% endif %}
+              </select>
+            </div>
+            <div>
+              <label>Current Rank</label>
+              <input name="rank" type="number" value="100" />
+            </div>
+          </div>
+          <label>Sector</label>
+          <select name="Sector">
+            <option value="">(none)</option>
+            {% if sectors and sectors|length > 0 %}
+              {% for s in sectors %}
+                <option value="{{ s }}">{{ s }}</option>
+              {% endfor %}
+            {% else %}
+              <option value="Steel">Steel</option>
+              <option value="Realty">Realty</option>
+              <option value="Construction">Construction</option>
+            {% endif %}
+          </select>
+          <div class="row">
+            <div>
+              <label>is_top_50</label>
+              <select name="is_top_50">
+                <option value="">auto</option>
+                <option value="1">1</option>
+                <option value="0">0</option>
+              </select>
+            </div>
+            <div>
+              <label>is_top_100</label>
+              <select name="is_top_100">
+                <option value="">auto</option>
+                <option value="1">1</option>
+                <option value="0">0</option>
+              </select>
+            </div>
+          </div>
+          <label>is_top_500</label>
+          <select name="is_top_500">
+            <option value="">auto</option>
+            <option value="1">1</option>
+            <option value="0">0</option>
+          </select>
+          <div class="helper">Tip: If you leave flags empty, the app derives them from the rank.</div>
+          <div style="margin-top: 14px; display:flex; gap:10px;">
+            <button class="button" type="submit">Predict</button>
+            <a class="button ghost" href="/api/train" onclick="event.preventDefault(); fetch('/api/train',{method:'POST'}).then(()=>location.reload())">Retrain</a>
+          </div>
+        </form>
+      </div>
+      <div class="card">
+        <h3 class="section-title">Prediction</h3>
+        {% if result and result.prob_selected_next_year is not none %}
+          <div class="kpi">
+            <div class="pill">Probability</div>
+            <div class="pill success">{{ (result.prob_selected_next_year * 100) | round(2) }}%</div>
+          </div>
+          <div class="progress">
+            <div class="bar" style="width: {{ (result.prob_selected_next_year * 100) | round(1) }}%"></div>
+          </div>
+        {% endif %}
+        <div class="result" style="margin-top: 10px;">{% if result %}{{ result | tojson(indent=2) }}{% endif %}</div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
