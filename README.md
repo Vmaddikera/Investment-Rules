@@ -4,7 +4,7 @@ An end-to-end ML web app that predicts the probability a company remains in next
 
 ## Preview
 
-Place your UI screenshot at `app\static\Web-Interface.png` and it will show below:
+<!-- Place your UI screenshot at `app\static\Web-Interface.png` and it will show below: -->
 
 ![Web UI](app/static/Web-Interface.png)
 
